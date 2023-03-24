@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visual Map of GitHub Repositories</title>
+</head>
+<body>
+<h1>Visual Map of GitHub Repositories</h1>
+<p>This page shows a visual map of your GitHub repositories.</p>
+<script>
+// Get the list of repositories
+var repositories = ['repository1', 'repository2', 'repository3'];
+
+// Create a new canvas element
+var canvas = document.createElement('canvas');
+
+// Set the size of the canvas
+canvas.width = 500;
+canvas.height = 500;
+
+// Create a new context
+var ctx = canvas.getContext('2d');
+
+// Draw the repositories
+for (var i = 0; i < repositories.length; i++) {
+  // Get the coordinates of the repository
+  var coordinates = [
+    repositories[i] / 100,
+    repositories[i] / 100
+  ];
+
+  // Draw a circle
+  ctx.beginPath();
+  ctx.arc(coordinates[0], coordinates[1], 50, 0, Math.PI * 2);
+  ctx.fillStyle = 'red';
+  ctx.fill();
+
+  // Draw a branch
+  ctx.beginPath();
+  ctx.moveTo(coordinates[0], coordinates[1] + 25);
+  ctx.lineTo(coordinates[0] + 25, coordinates[1]);
+  ctx.strokeStyle = 'black';
+  ctx.stroke();
+}
+
+// Draw the stars
+for (var i = 0; i < 100; i++) {
+  // Get the coordinates of the star
+  var coordinates = [
+    Math.random() * 500,
+    Math.random() * 500
+  ];
+
+  // Draw a star
+  ctx.beginPath();
+  ctx.arc(coordinates[0], coordinates[1], 5, 0, Math.PI * 2);
+  ctx.fillStyle = 'yellow';
+  ctx.fill();
+
+  // Draw a line to the nearest repository
+  var nearestRepository = repositories[Math.floor(Math.random() * repositories.length)];
+  var distance = Math.sqrt(Math.pow(coordinates[0] - nearestRepository / 100, 2) + Math.pow(coordinates[1] - nearestRepository / 100, 2));
+  ctx.beginPath();
+  ctx.moveTo(coordinates[0], coordinates[1]);
+  ctx.lineTo(nearestRepository / 100, nearestRepository / 100);
+  ctx.strokeStyle = 'black';
+  ctx.stroke();
+}
+</script>
+</body>
+</html>
